@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">VideoGameLibrary</string>
     <string name="add_game">ADD GAME</string>
+    <string name="game_title">GAME TITLE</string>
+    <string name="due_date">DUE DATE: %1$s</string>
+    <string name="genre">GENRE: %1$s</string>
 </resources>
