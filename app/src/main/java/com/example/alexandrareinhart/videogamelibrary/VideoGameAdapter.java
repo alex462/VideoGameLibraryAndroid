@@ -1,5 +1,6 @@
 package com.example.alexandrareinhart.videogamelibrary;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,7 +9,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,12 +80,48 @@ public class VideoGameAdapter extends RecyclerView.Adapter<VideoGameAdapter.View
         public void bindGame(VideoGame videoGame){
 
             gameTitle.setText(videoGame.getGameTitle());
-            gameGenre.setText();
+            gameGenre.setText(adapterCallback.getContext().getString(R.string.game_genre, videoGame.getGameGenre()));
+
+            if(videoGame.isCheckedOut()){
+
+                //Due date visible
+                gameDate.setVisibility(View.VISIBLE);
+                //Update checkout date
+                videoGame.setDate(new Date());
+                //Update background color - LIGHT GREY
+                rowLayout.setBackgroundResource(R.color.lightGrey);
+                //Calculate due date (2 wks out)
+                int numberOfDays = 14;
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(videoGame.getDate());
+                calendar.add(Calendar.DAY_OF_YEAR, numberOfDays);
+                Date date = calendar.getTime();
+                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/YYYY", Locale.US);
+                gameDate.setText(adapterCallback.getContext().getString(R.string.game_due_date, formatter.format(date)));
+            }
+            else{
+
+                //Due date invisible
+                gameDate.setVisibility(View.INVISIBLE);
+                //Update background color - PALE GREEN
+                rowLayout.setBackgroundResource(R.color.paleGreen);
+            }
         }
+    }
+
+    public View.OnClickListener onClick(final VideoGame videoGame){
+
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapterCallback.rowClicked(videoGame);
+            }
+        };
     }
 
     public interface AdapterCallback {
 
-
+        Context getContext();
+        void rowClicked(VideoGame videoGame);
     }
 }
