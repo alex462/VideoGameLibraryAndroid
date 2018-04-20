@@ -4,4 +4,6 @@
     <string name="game_title">GAME TITLE</string>
     <string name="due_date">DUE DATE: %1$s</string>
     <string name="genre">GENRE: %1$s</string>
+    <string name="game_title_input">ENTER GAME TITLE HERE</string>
+    <string name="game_genre_input">ENTER GAME GENRE HERE</string>
 </resources>

@@ -7,4 +7,8 @@
     <color name="red">#FF3A59</color>
     <color name="paleGreen">#afd7b4</color>
     <color name="paleRed">#fb9692</color>
+    <color name="paleBlue">#c0d6e4</color>
+    <color name="lightGrey">#c0c0c0</color>
+    <color name="paleOrange">#fab297</color>
+    <color name="inkyBlue">#12004b</color>
 </resources>

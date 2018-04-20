@@ -118,3 +118,6 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+!/app/src/main/res/drawable/starry_sky.png
+app/libs/
+app/src/main/res/drawable/starry_sky.png

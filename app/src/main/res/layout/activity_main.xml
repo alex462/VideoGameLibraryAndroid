@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/inkyBlue"
     tools:context=".MainActivity">
 
     <android.support.v7.widget.RecyclerView
@@ -26,7 +27,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@android:color/holo_green_light"
+        android:background="@color/paleBlue"
         android:text="@string/add_game"
         android:textAlignment="center"
         android:textSize="18sp"
