@@ -80,15 +80,66 @@ public class MainActivity extends AppCompatActivity implements VideoGameAdapter.
     @Override
     public void rowClicked(VideoGame videoGame) {
 
-        videoGame.isCheckedOut() ? checkGameBackIn(videoGame) : checkGameOut(videoGame);
+        if(videoGame.isCheckedOut()){
+            checkGameBackIn(videoGame);
+        } else {
+            checkGameOut(videoGame);
+        }
+    }
+
+    @Override
+    public void rowLongClicked(final VideoGame videoGame) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete Game?")
+                .setMessage("Are you sure you want to permanently delete this game from your library?")
+                .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        videoGameDatabase.videoGameDao().deleteVideoGame(videoGame); //delete game from database
+                        videoGameAdapter.updateList(videoGameDatabase.videoGameDao().getVideoGames()); //adapter updates view
+                        Toast.makeText(MainActivity.this, "GAME DELETED SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private void checkGameOut(final VideoGame videoGame) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Check-Out Game?")
+                .setMessage("Are you sure you want to check this game out?")
+                .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        videoGame.setCheckedOut(true);
+                        videoGameDatabase.videoGameDao().updateVideoGame(videoGame); //update database
+                        videoGameAdapter.updateList(videoGameDatabase.videoGameDao().getVideoGames()); //adapter updates view
+                        Toast.makeText(MainActivity.this, "GAME CHECKED OUT", Toast.LENGTH_LONG).show(); //Toast to confirm checkout
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     private void checkGameBackIn(final VideoGame videoGame) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Check-In Game?")
-                .setMessage("Are you sure you want to check this game back in to your library?")
-                .setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.check_in_game)
+                .setMessage(R.string.are_you_sure)
+                .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         videoGame.setCheckedOut(false);
@@ -97,10 +148,10 @@ public class MainActivity extends AppCompatActivity implements VideoGameAdapter.
                         //inform adapter; adapter updates view accordingly
                         videoGameAdapter.updateList(videoGameDatabase.videoGameDao().getVideoGames());
 
-                        Toast.makeText(MainActivity.this, "GAME IS CHECKED IN", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, R.string.game_checked_in, Toast.LENGTH_LONG).show();
                     }
                 })
-                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

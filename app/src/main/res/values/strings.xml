@@ -1,9 +1,15 @@
 <resources>
     <string name="app_name">VideoGameLibrary</string>
     <string name="add_game">ADD GAME</string>
-    <string name="game_title">GAME TITLE</string>
+    <string name="item_title">GAME TITLE</string>
     <string name="game_due_date">DUE DATE: %1$s</string>
     <string name="game_genre">GENRE: %1$s</string>
     <string name="game_title_input">ENTER GAME TITLE HERE</string>
     <string name="game_genre_input">ENTER GAME GENRE HERE</string>
+    <string name="check_in_game">Check-In Game?</string>
+    <string name="are_you_sure">Are you sure you want to check this game back in to your library?</string>
+    <string name="confirm">CONFIRM</string>
+    <string name="game_checked_in">GAME IS CHECKED IN</string>
+    <string name="cancel">@android:string/cancel</string>
+
 </resources>

@@ -74,11 +74,6 @@ public class AddGameFragment extends Fragment {
         Toast.makeText(getActivity(), "GAME ADDED", Toast.LENGTH_LONG).show();
     }
 
-    private void addGameToDatabase(){
-
-
-    }
-
     public void attachParent(ActivityCallback activityCallback){
 
         this.activityCallback = activityCallback;

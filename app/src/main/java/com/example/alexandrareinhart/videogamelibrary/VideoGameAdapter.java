@@ -39,13 +39,11 @@ public class VideoGameAdapter extends RecyclerView.Adapter<VideoGameAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.bind(videoGamesList.get(position));
-
-        //TODO - set up onClicks for deleting games and checking out games
-        holder.itemView.setOnClickListener(holder.onClick(videoGamesList).get(position));
-        holder.itemView.setOnLongClickListener();
+        holder.bindGame(videoGamesList.get(position));
+        holder.itemView.setOnClickListener(holder.onClick(videoGamesList.get(position)));
+        holder.itemView.setOnLongClickListener(holder.onLongClick(videoGamesList.get(position)));
     }
 
     @Override
@@ -64,25 +62,25 @@ public class VideoGameAdapter extends RecyclerView.Adapter<VideoGameAdapter.View
 
         @BindView(R.id.item_row_layout)
         protected RelativeLayout rowLayout;
-        @BindView(R.id.item_title)
+        @BindView(R.id.game_title)
         protected TextView gameTitle;
         @BindView(R.id.item_genre)
         protected TextView gameGenre;
         @BindView(R.id.item_date)
         protected TextView gameDate;
 
-        public ViewHolder (View itemView){
+        public ViewHolder(View itemView) {
 
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindGame(VideoGame videoGame){
+        public void bindGame(VideoGame videoGame) {
 
             gameTitle.setText(videoGame.getGameTitle());
             gameGenre.setText(adapterCallback.getContext().getString(R.string.game_genre, videoGame.getGameGenre()));
 
-            if(videoGame.isCheckedOut()){
+            if (videoGame.isCheckedOut()) {
 
                 //Due date visible
                 gameDate.setVisibility(View.VISIBLE);
@@ -98,8 +96,7 @@ public class VideoGameAdapter extends RecyclerView.Adapter<VideoGameAdapter.View
                 Date date = calendar.getTime();
                 SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/YYYY", Locale.US);
                 gameDate.setText(adapterCallback.getContext().getString(R.string.game_due_date, formatter.format(date)));
-            }
-            else{
+            } else {
 
                 //Due date invisible
                 gameDate.setVisibility(View.INVISIBLE);
@@ -107,21 +104,33 @@ public class VideoGameAdapter extends RecyclerView.Adapter<VideoGameAdapter.View
                 rowLayout.setBackgroundResource(R.color.paleGreen);
             }
         }
-    }
 
-    public View.OnClickListener onClick(final VideoGame videoGame){
+        public View.OnLongClickListener onLongClick(final VideoGame videoGame) {
+            return new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    adapterCallback.rowLongClicked(videoGame);
+                    return true;
+                }
+            };
+        }
 
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapterCallback.rowClicked(videoGame);
-            }
-        };
+
+        public View.OnClickListener onClick(final VideoGame videoGame) {
+
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    adapterCallback.rowClicked(videoGame);
+                }
+            };
+        }
     }
 
     public interface AdapterCallback {
 
         Context getContext();
         void rowClicked(VideoGame videoGame);
+        void rowLongClicked(VideoGame videoGame);
     }
 }
