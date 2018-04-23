@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements VideoGameAdapter.
     private VideoGameAdapter videoGameAdapter;
     private AddGameFragment addGameFragment;
     private LinearLayoutManager linearLayoutManager;
-    //    private List<VideoGame> videoGameList;
+
     /**
      * ASK CRYSTAL: This List is called videoGameList, but there is another list in the program called videoGamesList that we have been utilizing up to this point. Are they 2 different lists or the same? NEED TO FIX.
      */

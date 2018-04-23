@@ -2,6 +2,7 @@ package com.example.alexandrareinhart.videogamelibrary;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +62,7 @@ public class VideoGameAdapter extends RecyclerView.Adapter<VideoGameAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.item_row_layout)
-        protected RelativeLayout rowLayout;
+        protected ConstraintLayout rowLayout;
         @BindView(R.id.game_title)
         protected TextView gameTitle;
         @BindView(R.id.item_genre)
