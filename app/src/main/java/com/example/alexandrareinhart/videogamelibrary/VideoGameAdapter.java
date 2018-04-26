@@ -59,6 +59,8 @@ public class VideoGameAdapter extends RecyclerView.Adapter<VideoGameAdapter.View
         notifyDataSetChanged();
     }
 
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.item_row_layout)
@@ -80,6 +82,7 @@ public class VideoGameAdapter extends RecyclerView.Adapter<VideoGameAdapter.View
 
             gameTitle.setText(videoGame.getGameTitle());
             gameGenre.setText(adapterCallback.getContext().getString(R.string.game_genre, videoGame.getGameGenre()));
+
 
             if (videoGame.isCheckedOut()) {
 
@@ -126,6 +129,14 @@ public class VideoGameAdapter extends RecyclerView.Adapter<VideoGameAdapter.View
                 }
             };
         }
+
+        public void updateVisibility(VideoGame videoGame) {
+
+            rowLayout.setVisibility(View.VISIBLE);
+            gameTitle.setVisibility(View.VISIBLE);
+            gameGenre.setVisibility(View.VISIBLE);
+            adapterCallback.updateVisibility(videoGame);
+        }
     }
 
     public interface AdapterCallback {
@@ -133,5 +144,6 @@ public class VideoGameAdapter extends RecyclerView.Adapter<VideoGameAdapter.View
         Context getContext();
         void rowClicked(VideoGame videoGame);
         void rowLongClicked(VideoGame videoGame);
+        void updateVisibility(VideoGame videoGame);
     }
 }

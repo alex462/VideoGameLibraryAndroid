@@ -3,6 +3,7 @@ package com.example.alexandrareinhart.videogamelibrary;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +22,9 @@ public class AddGameFragment extends Fragment {
     private ActivityCallback activityCallback;
     private VideoGameDatabase videoGameDatabase;
 
+
     @BindView(R.id.enter_title_editText)
     protected EditText gameTitle;
-
     @BindView(R.id.enter_genre_editText)
     protected EditText gameGenre;
 
@@ -33,7 +34,6 @@ public class AddGameFragment extends Fragment {
         
         View view = inflater.inflate(R.layout.fragment_add_game, container, false);
         ButterKnife.bind(this, view);
-        
         return view;
     }
 
@@ -48,6 +48,7 @@ public class AddGameFragment extends Fragment {
 
     @Override
     public void onStart() {
+
         super.onStart();
         videoGameDatabase = ((VideoGameApplication) getActivity().getApplicationContext()).getDatabase();
     }
@@ -57,12 +58,12 @@ public class AddGameFragment extends Fragment {
 
         if(gameTitle.getText().toString().isEmpty() || gameGenre.getText().toString().isEmpty()){
             Toast.makeText(getActivity(), "ALL FIELDS ARE REQUIRED", Toast.LENGTH_LONG).show();
-        }
-        else{
+
+        } else {
 
             VideoGame videoGame = new VideoGame(gameTitle.getText().toString(), gameGenre.getText().toString(), new Date());
-
             addGameToDatabase(videoGame);
+
         }
     }
 
@@ -70,6 +71,7 @@ public class AddGameFragment extends Fragment {
 
         videoGameDatabase.videoGameDao().addVideoGame(videoGame);
         activityCallback.addClicked();
+        activityCallback.up
 
         Toast.makeText(getActivity(), "GAME ADDED", Toast.LENGTH_LONG).show();
     }
