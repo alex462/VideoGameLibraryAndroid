@@ -71,7 +71,6 @@ public class AddGameFragment extends Fragment {
 
         videoGameDatabase.videoGameDao().addVideoGame(videoGame);
         activityCallback.addClicked();
-        activityCallback.up
 
         Toast.makeText(getActivity(), "GAME ADDED", Toast.LENGTH_LONG).show();
     }

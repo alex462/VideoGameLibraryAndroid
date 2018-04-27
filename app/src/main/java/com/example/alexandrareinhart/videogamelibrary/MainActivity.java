@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements VideoGameAdapter.
                 .show();
     }
 
+
     private void checkGameOut(final VideoGame videoGame) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
